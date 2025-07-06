@@ -530,15 +530,20 @@
     const menuToggle = document.getElementById('menu-toggle');
     const mobileMenu = document.getElementById('mobile-menu');
 
-    menuToggle.addEventListener('click', () => {
-        mobileMenu.classList.toggle('hidden');
-    });
-
-    document.querySelectorAll('#mobile-menu a').forEach(link => {
-        link.addEventListener('click', () => {
-            mobileMenu.classList.add('hidden');
+    if (menuToggle && mobileMenu) {
+        menuToggle.addEventListener('click', () => {
+            console.log("Toggle clicked"); // <-- segítség a hibakereséshez
+            mobileMenu.classList.toggle('hidden');
         });
-    });
+
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+    } else {
+        console.error("Nem található a menuToggle vagy mobileMenu elem.");
+    }
 });
                 
         // Smooth scrolling for anchor links
