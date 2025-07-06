@@ -108,6 +108,65 @@
             background-repeat: no-repeat;
             background-size: cover;
         }
+
+        /* Hamburger menü animáció */
+#mobile-menu {
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    min-width: 150px;
+}
+
+/* Menü linkek stílusa */
+#mobile-menu a {
+    font-weight: 500;
+    padding: 0.25rem 0;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+/* Hover effekt - aláhúzás animáció */
+#mobile-menu a::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background: linear-gradient(to right, #8b5cf6, #6366f1);
+    transition: width 0.3s ease;
+}
+
+#mobile-menu a:hover::after {
+    width: 100%;
+}
+
+/* Hamburger ikon hover effekt */
+#menu-toggle:hover {
+    color: #a78bfa; /* light purple */
+    transform: scale(1.1);
+    transition: all 0.2s ease;
+}
+
+/* Menü animáció */
+#mobile-menu {
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+}
+
+/* Link ikon animáció */
+#mobile-menu a i {
+    color: #a78bfa;
+    transition: transform 0.2s ease;
+}
+
+#mobile-menu a:hover i {
+    transform: scale(1.2);
+}
+
+/* Menü ikon animáció */
+#menu-toggle:hover {
+    color: #c084fc;
+}
     </style>
 </head>
 <body class="min-h-screen">
@@ -137,37 +196,31 @@
 
 
     <!-- Navigation -->
-    <nav class="fixed w-full z-40 py-4 px-6 backdrop-blur-md bg-slate-950/70 border-b border-slate-900 mt-1 transition-colors duration-300 dark:bg-slate-950/70 light:bg-white/90">
-        <div class="absolute inset-0 bg-gradient-to-r from-purple-900/10 to-indigo-900/10 opacity-30"></div>
-        <div class="max-w-6xl mx-auto flex justify-between items-center">
-            <a href="#" class="text-2xl font-bold gradient-text hover:scale-105 transition-transform duration-300">ASERY</a>
-            <div class="hidden md:flex space-x-8">
-                <a href="#about" class="relative group hover:text-purple-400 transition">
-                    About
-                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-purple-400 transition-all duration-300 group-hover:w-full"></span>
-                </a>
-                <a href="#passions" class="relative group hover:text-purple-400 transition">
-                    Passions
-                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-purple-400 transition-all duration-300 group-hover:w-full"></span>
-                </a>
-                <a href="#contact" class="relative group hover:text-purple-400 transition">
-                    Connect
-                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-purple-400 transition-all duration-300 group-hover:w-full"></span>
-                </a>
-            </div>
-            <button class="md:hidden text-xl" id="menu-toggle">
-                <i class="fas fa-bars"></i>
-            </button>
-        </div>
-        <!-- Mobile Menu -->
-        <div class="md:hidden hidden py-4 px-6 bg-slate-950/90 backdrop-blur-lg rounded-lg mt-2" id="mobile-menu">
-            <div class="flex flex-col space-y-4">
-                <a href="#about" class="hover:text-purple-400 transition">About</a>
-                <a href="#passions" class="hover:text-purple-400 transition">Passions</a>
-                <a href="#contact" class="hover:text-purple-400 transition">Connect</a>
-            </div>
-        </div>
-    </nav>
+    <nav class="fixed w-full z-40 py-4 px-6 backdrop-blur-md bg-slate-950/70 border-b border-slate-900 mt-1 transition-colors duration-300">
+  <div class="absolute inset-0 bg-gradient-to-r from-purple-900/10 to-indigo-900/10 opacity-30"></div>
+
+  <div class="max-w-6xl mx-auto flex justify-between items-center relative">
+    <a href="#" class="text-2xl font-bold gradient-text hover:scale-105 transition-transform duration-300">ASERY</a>
+
+    <!-- Hamburger/X ikon -->
+    <button class="text-2xl text-white focus:outline-none transition-transform duration-200 hover:scale-110" id="menu-toggle">
+      <i class="fas fa-bars" id="menu-icon"></i>
+    </button>
+
+    <!-- Menü lenyíló -->
+    <div class="hidden flex-col items-start space-y-4 bg-slate-950/90 backdrop-blur-lg rounded-xl p-6 absolute top-full right-0 mt-4 z-50 min-w-[180px] shadow-xl" id="mobile-menu">
+      <a href="#about" class="flex items-center gap-3 text-white hover:text-purple-400 transition">
+        <i class="fas fa-user"></i> About
+      </a>
+      <a href="#passions" class="flex items-center gap-3 text-white hover:text-purple-400 transition">
+        <i class="fas fa-heart"></i> Passions
+      </a>
+      <a href="#contact" class="flex items-center gap-3 text-white hover:text-purple-400 transition">
+        <i class="fas fa-paper-plane"></i> Connect
+      </a>
+    </div>
+  </div>
+</nav>
 
     <!-- Hero Section -->
     <section class="min-h-screen flex items-center justify-center pt-16 px-6" id="hero">
@@ -364,7 +417,7 @@
                             </div>
                             <div>
                                 <h4 class="font-medium">Twitch</h4>
-                                <p class="text-sm text-slate-400">twitch.tv/asery</p>
+                                <p class="text-sm text-slate-400">twitch.tv/AseryVL</p>
                             </div>
                         </div>
                     </div>
@@ -526,22 +579,40 @@
             age--;
         }
 
-        document.querySelectorAll('#mobile-menu a').forEach(link => {
+        document.addEventListener('DOMContentLoaded', function () {
+  const toggleBtn = document.getElementById('menu-toggle');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const menuIcon = document.getElementById('menu-icon');
+
+  toggleBtn.addEventListener('click', () => {
+    mobileMenu.classList.toggle('hidden');
+
+    // Hamburger ↔ X ikon váltás
+    if (mobileMenu.classList.contains('hidden')) {
+      menuIcon.classList.remove('fa-times');
+      menuIcon.classList.add('fa-bars');
+    } else {
+      menuIcon.classList.remove('fa-bars');
+      menuIcon.classList.add('fa-times');
+    }
+  });
+
+  // Menü bezárás linkre kattintva
+  document.querySelectorAll('#mobile-menu a').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu.classList.add('hidden');
+      menuIcon.classList.remove('fa-times');
+      menuIcon.classList.add('fa-bars');
+    });
+  });
+});
+
+    // Menü automatikus bezárása kattintás után
+    document.querySelectorAll('#mobile-menu a').forEach(link => {
         link.addEventListener('click', () => {
             mobileMenu.classList.add('hidden');
         });
     });
-                
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
         
         // Particles background for hero section
         function initParticles() {
@@ -601,25 +672,5 @@
             });
         });
     </script>
-
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    const menuToggle = document.getElementById('menu-toggle');
-    const mobileMenu = document.getElementById('mobile-menu');
-
-    if (menuToggle && mobileMenu) {
-        menuToggle.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
-
-        document.querySelectorAll('#mobile-menu a').forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden');
-            });
-        });
-    }
-});
-</script>
-
 </body>
 </html>
