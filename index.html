@@ -570,24 +570,14 @@
             document.querySelector('#scroll-progress').style.width = scrollProgress + '%';
         });
 
-        const birthDate = new Date(2006, 2, 25);
-        const today = new Date();
-        let age = today.getFullYear() - birthDate.getFullYear();
-        const monthDiff = today.getMonth() - birthDate.getMonth();
-
-        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
-            age--;
-        }
-
         document.addEventListener('DOMContentLoaded', function () {
   const toggleBtn = document.getElementById('menu-toggle');
   const mobileMenu = document.getElementById('mobile-menu');
   const menuIcon = document.getElementById('menu-icon');
 
+  // Menürendszer
   toggleBtn.addEventListener('click', () => {
     mobileMenu.classList.toggle('hidden');
-
-    // Hamburger ↔ X ikon váltás
     if (mobileMenu.classList.contains('hidden')) {
       menuIcon.classList.remove('fa-times');
       menuIcon.classList.add('fa-bars');
@@ -597,7 +587,6 @@
     }
   });
 
-  // Menü bezárás linkre kattintva
   document.querySelectorAll('#mobile-menu a').forEach(link => {
     link.addEventListener('click', () => {
       mobileMenu.classList.add('hidden');
@@ -605,7 +594,18 @@
       menuIcon.classList.add('fa-bars');
     });
   });
+
+  // 💡 Életkor számítás és kiírás
+  const birthDate = new Date(2006, 2, 25); // március 25
+  const today = new Date();
+  let age = today.getFullYear() - birthDate.getFullYear();
+  const monthDiff = today.getMonth() - birthDate.getMonth();
+  if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+  }
+  document.getElementById('age').textContent = age;
 });
+
 
     // Menü automatikus bezárása kattintás után
     document.querySelectorAll('#mobile-menu a').forEach(link => {
