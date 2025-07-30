@@ -1,677 +1,507 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="ChatGPT Image Jul 20, 2025, 06_55_12 PM.png" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <link href="output.css" rel="stylesheet">
+    <script defer src="script.js"></script>
+    <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
     <title>Jani | Asery</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
-    <style>
-        html {
-            scroll-behavior: smooth;
-        }
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Poppins:wght@300;400;600;700&display=swap');
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .animate-fadeIn {
-            animation: fadeIn 1s ease forwards;
-        }
-        
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-        
-        .animate-pulse {
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-        
-        .animate-rotate {
-            animation: rotate 10s linear infinite;
-        }
-        
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #01010e;
-            color: #e2e8f0;
-            overflow-x: hidden;
-        }
-        
-        .gradient-text {
-            background: linear-gradient(90deg, #6366f1, #8b5cf6, #ec4899);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-        
-        .card-glass {
-            background: rgba(1, 1, 14, 0.8);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-        
-        .floating {
-            animation: floating 6s ease-in-out infinite;
-        }
-        
-        @keyframes floating {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); }
-            100% { transform: translateY(0px); }
-        }
-        
-        .typewriter {
-            overflow: hidden;
-            border-right: .15em solid #6366f1;
-            white-space: nowrap;
-            margin: 0 auto;
-            letter-spacing: .15em;
-            animation: 
-                typing 3.5s steps(40, end),
-                blink-caret .75s step-end infinite;
-        }
-        
-        @keyframes typing {
-            from { width: 0 }
-            to { width: 100% }
-        }
-        
-        @keyframes blink-caret {
-            from, to { border-color: transparent }
-            50% { border-color: #6366f1; }
-        }
-        
-        .hobby-icon {
-            transition: all 0.3s ease;
-        }
-        
-        .hobby-icon:hover {
-            transform: scale(1.1) rotate(5deg);
-            color: #8b5cf6;
-        }
-        
-        .parallax {
-            background-attachment: fixed;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-        }
-
-        /* Hamburger menü animáció */
-#mobile-menu {
-    transition: all 0.3s ease;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
-    min-width: 150px;
-}
-
-/* Menü linkek stílusa */
-#mobile-menu a {
-    font-weight: 500;
-    padding: 0.25rem 0;
-    position: relative;
-    transition: color 0.3s ease;
-}
-
-/* Hover effekt - aláhúzás animáció */
-#mobile-menu a::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0%;
-    height: 2px;
-    background: linear-gradient(to right, #8b5cf6, #6366f1);
-    transition: width 0.3s ease;
-}
-
-#mobile-menu a:hover::after {
-    width: 100%;
-}
-
-/* Hamburger ikon hover effekt */
-#menu-toggle:hover {
-    color: #a78bfa; /* light purple */
-    transform: scale(1.1);
-    transition: all 0.2s ease;
-}
-
-/* Menü animáció */
-#mobile-menu {
-    transition: all 0.3s ease;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
-}
-
-/* Link ikon animáció */
-#mobile-menu a i {
-    color: #a78bfa;
-    transition: transform 0.2s ease;
-}
-
-#mobile-menu a:hover i {
-    transform: scale(1.2);
-}
-
-/* Menü ikon animáció */
-#menu-toggle:hover {
-    color: #c084fc;
-}
-    </style>
 </head>
-<body class="min-h-screen">
-    <!-- Scroll Progress Indicator -->
-    <div class="fixed top-0 left-0 right-0 h-1 bg-purple-900/20 z-50">
-        <div id="scroll-progress" class="h-full bg-gradient-to-r from-indigo-500 to-purple-500" style="width: 0%"></div>
+
+<body class="bg-color-body">
+    <div id="home"></div>
+    <div id="blob"></div>
+    <div id="blur"></div>
+
+
+    <!-- Enlarged Image Modal -->
+    <div id="enlargedImageModal"
+        class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center hidden z-50">
+        <img src="https://res.cloudinary.com/dafkxp67j/image/upload/w_800,q_80,f_auto/v1736632451/web1_tndi7q.png"
+            id="enlargedImage" class="max-h-full rounded">
+        <button id="closeModal"
+            class="absolute top-3 right-3 flex flex-col justify-center items-center w-12 h-12 rounded-lg transition-all duration-300 bg-gray-800/30 border border-gray-700/30 hover:bg-gray-700/30 hover:scale-110 focus:outline-none">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+        </button>
     </div>
-    <script>
-        window.addEventListener('scroll', function() {
-            const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const scrollProgress = (scrollTop / scrollHeight) * 100;
-            document.getElementById('scroll-progress').style.width = scrollProgress + '%';
-        });
-    </script>
-    
-    <!-- Animated Background -->
-    <div class="fixed inset-0 -z-10 overflow-hidden">
-        <div class="absolute inset-0 bg-gradient-to-br from-indigo-900/20 via-purple-900/20 to-pink-900/20"></div>
-        <div class="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10"></div>
-        <div class="absolute top-0 left-0 w-full h-full overflow-hidden">
-            <div class="absolute top-20 left-10 w-64 h-64 rounded-full bg-purple-900/30 blur-3xl"></div>
-            <div class="absolute top-1/3 right-20 w-80 h-80 rounded-full bg-indigo-900/30 blur-3xl"></div>
-            <div class="absolute bottom-20 left-1/3 w-72 h-72 rounded-full bg-pink-900/30 blur-3xl"></div>
+
+
+
+    <!-- Navbar -->
+    <div class="flex items-center p-3 sticky top-0 z-10">
+        <div>
+            <button id="menu-button"
+                class="menu-button flex flex-col justify-center items-center w-12 h-12 rounded-lg transition-all duration-300 bg-gray-800/30 border border-gray-700/30 hover:bg-gray-700/30 hover:scale-110 focus:outline-none">
+                <span class="hamburger-line w-5 h-0.5 bg-white rounded-full mb-1.5"></span>
+                <span class="hamburger-line w-5 h-0.5 bg-white rounded-full mb-1.5"></span>
+                <span class="hamburger-line w-5 h-0.5 bg-white rounded-full"></span>
+            </button>
         </div>
-    </div>
 
+        <div id="navbar"
+            class="hidden fixed top-20 left-3 py-6 px-4 bg-gray-800/30 backdrop-blur-sm rounded-lg border border-gray-700/30">
+            <nav class="space-y-8">
+                <a data-scroll-to="home"
+                    class="group relative flex justify-center text-white transition-all duration-300 hover:scale-110 hover:text-white-100 cursor-pointer">
+                    <span
+                        class="absolute left-14 top-1/2 -translate-y-1/2 w-auto min-w-max origin-left scale-0 rounded-lg bg-gray-800/30 backdrop-blur-sm border border-gray-700/30 p-2 text-xs text-white group-hover:scale-100 transition-all duration-300">
+                        Home
+                    </span>
+                    <svg class="w-8 h-8 group-hover:text-white-100" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
+                        </path>
+                    </svg>
+                </a>
+                <a data-scroll-to="about"
+                    class="group relative flex justify-center text-white transition-all duration-300 hover:scale-110 hover:text-white-100 cursor-pointer">
+                    <span
+                        class="absolute left-14 top-1/2 -translate-y-1/2 w-auto min-w-max origin-left scale-0 rounded-lg bg-gray-800/30 backdrop-blur-sm border border-gray-700/30 p-2 text-xs text-white group-hover:scale-100 transition-all duration-300">
+                        About Me & Skills
+                    </span>
+                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                    </svg>
+                </a>
 
-    <!-- Navigation -->
-    <nav class="fixed w-full z-40 py-4 px-6 backdrop-blur-md bg-slate-950/70 border-b border-slate-900 mt-1 transition-colors duration-300">
-  <div class="absolute inset-0 bg-gradient-to-r from-purple-900/10 to-indigo-900/10 opacity-30"></div>
-
-  <div class="max-w-6xl mx-auto flex justify-between items-center relative">
-    <a href="#" class="text-2xl font-bold gradient-text hover:scale-105 transition-transform duration-300">ASERY</a>
-
-    <!-- Hamburger/X ikon -->
-    <button class="text-2xl text-white focus:outline-none transition-transform duration-200 hover:scale-110" id="menu-toggle">
-      <i class="fas fa-bars" id="menu-icon"></i>
-    </button>
-
-    <!-- Menü lenyíló -->
-    <div class="hidden flex-col items-start space-y-4 bg-slate-950/90 backdrop-blur-lg rounded-xl p-6 absolute top-full right-0 mt-4 z-50 min-w-[180px] shadow-xl" id="mobile-menu">
-      <a href="#about" class="flex items-center gap-3 text-white hover:text-purple-400 transition">
-        <i class="fas fa-user"></i> About
-      </a>
-      <a href="#passions" class="flex items-center gap-3 text-white hover:text-purple-400 transition">
-        <i class="fas fa-heart"></i> Passions
-      </a>
-      <a href="#contact" class="flex items-center gap-3 text-white hover:text-purple-400 transition">
-        <i class="fas fa-paper-plane"></i> Connect
-      </a>
-    </div>
-  </div>
-</nav>
-
-    <!-- Hero Section -->
-    <section class="min-h-screen flex items-center justify-center pt-16 px-6" id="hero">
-        <div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-            <div class="particles absolute inset-0"></div>
-        </div>
-        <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-            <div class="text-center md:text-left">
-                <h1 class="text-4xl md:text-6xl font-bold mb-4">
-                    <span class="gradient-text">Szilágyi János</span>
-                </h1>
-                <h2 class="text-2xl md:text-3xl font-semibold mb-6 typewriter">But you can call me Asery</h2>
-                <p class="text-lg md:text-xl mb-8 text-slate-300 max-w-lg">
-                    A creative developer, music producer, and passionate creator from Nyíregyháza, Hungary.
-                </p>
-                <div class="flex flex-wrap gap-4 justify-center md:justify-start">
-                    <a href="#about" class="px-6 py-3 bg-gradient-to-r from-indigo-900 to-purple-900 rounded-full font-medium hover:opacity-90 transition">
-                        Explore More
-                    </a>
-                    <a href="#contact" class="px-6 py-3 border border-purple-400 text-purple-400 rounded-full font-medium hover:bg-purple-400/10 transition">
+                <a data-scroll-to="portfolio"
+                    class="group relative flex justify-center text-white transition-all duration-300 hover:scale-110 hover:text-white-100 cursor-pointer">
+                    <span
+                        class="absolute left-14 top-1/2 -translate-y-1/2 w-auto min-w-max origin-left scale-0 rounded-lg bg-gray-800/30 backdrop-blur-sm border border-gray-700/30 p-2 text-xs text-white group-hover:scale-100 transition-all duration-300">
+                        My Setup
+                    </span>
+                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10">
+                        </path>
+                    </svg>
+                </a>
+                <a data-scroll-to="contact"
+                    class="group relative flex justify-center text-white transition-all duration-300 hover:scale-110 hover:text-white-100 cursor-pointer">
+                    <span
+                        class="absolute left-14 top-1/2 -translate-y-1/2 w-auto min-w-max origin-left scale-0 rounded-lg bg-gray-800/30 backdrop-blur-sm border border-gray-700/30 p-2 text-xs text-white group-hover:scale-100 transition-all duration-300">
                         Get in Touch
+                    </span>
+                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
+                        </path>
+                    </svg>
+                </a>
+            </nav>
+        </div>
+    </div>
+
+    </div>
+    <!--HOME !-->
+    <div class="flex justify-center items-center pb-2 lg:pb-24 lg:pt-52">
+        <section>
+            <div class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16 sm:py-10">
+                <h1
+                    class="mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl lg:text-6xl appearAnimation">
+                    Hi! My name is
+                    <span
+                        class="inline-block animate-gradient bg-gradient-to-r from-white-200 via-white-400 to-white-200 bg-clip-text text-transparent bg-300% hover:scale-110 transition-transform duration-300 hover:text-shadow-glow cursor-pointer font-black">
+                        Jani
+                    </span>
+                </h1>
+                <p class="mb-8 text-lg font-normal text-gray-300 lg:text-xl sm:px-16 lg:px-48 appearAnimation">I am
+                    currently pursuing studies to become a Front-End Developer, I'd like to work with <b>YOU!</b></p>
+                <div class="flex justify-center space-x-4 appearAnimation">
+                    <a data-scroll-to="about"
+                        class="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white hover:text-white-100 rounded-lg bg-gray-800/30 border border-gray-700/30 hover:scale-110 transition-all duration-300 cursor-pointer">
+                        About Me
+                        <svg class="w-3.5 h-3.5 ms-2 rtl:rotate-180" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M1 5h12m0 0L9 1m4 4L9 9" />
+                        </svg>
+                    </a>
+                    <a data-scroll-to="contact"
+                        class="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white hover:text-white-100 rounded-lg bg-gray-800/30 border border-gray-700/30 hover:scale-110 transition-all duration-300 cursor-pointer">
+                        Contact Me
+                        <svg class="w-3.5 h-3.5 ms-2 rtl:rotate-180" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M1 5h12m0 0L9 1m4 4L9 9" />
+                        </svg>
                     </a>
                 </div>
             </div>
-            <div class="relative flex justify-center">
-                <div class="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-purple-500/30 floating hover:border-purple-500/60 transition-all duration-500 cursor-pointer" id="profile-image">
-                    <div class="absolute inset-0 bg-[url('./image/asery.png')] bg-cover bg-center"></div>
-                    <div class="absolute inset-0 bg-purple-500/10"></div>
-                </div>
-                <div class="absolute -z-10 -bottom-8 -right-8 w-64 h-64 rounded-full bg-purple-500/20 blur-2xl"></div>
+        </section>
+    </div>
+
+    </div>
+    <div class=" w-full flex text-center justify-center">
+        <svg class="w-8 h-40 text-white bounce" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 5v14M19 12l-7 7-7-7" />
+        </svg>
+    </div>
+
+    <!-- About Me !-->
+    <section id="about" class="pb-96 pt-52">
+        <h1 class="text-6xl text-center text-white font-extrabold tracking-tigh appearAnimation pb-16">About <span
+                class="inline-block animate-gradient bg-gradient-to-r from-white-200 via-white-400 to-white-200 bg-clip-text text-transparent bg-300% hover:scale-110 transition-transform duration-300 hover:text-shadow-glow cursor-pointer font-black">
+                Me
+            </span></h1>
+        <div class="flex flex-col md:flex-row justify-center items-center px-6 xl:px-64 lg:px-24">
+            <div class="flex-1 appearAnimation">
+                <p class="text-gray-300 pt-7 text-2xl md:text-left text-center">Hi! My name is <b>Jani</b> but most people know me as <b>Asery</b>. I am <span class="font-bold" id="age"></span> years old from Nyíregyháza, Hungary. I'm a high school student majoring in software development and testing, where I'm learning to turn complex problems into elegant solutions. When I'm not coding, you can find me streaming, making music, or staying active through sports and fitness. I have a passion for bringing creative ideas to life in both digital and physical spaces.</p>
+                <p class="text-gray-300 pt-7 text-2xl md:text-left text-center">My current skill set for Web Development
+                    is listed on the
+                    right.</p>
             </div>
+            <div class="flex-1 py-12">
+
+                <div class="flex flex-wrap justify-center items-center gap-8 px-4">
+                    <!-- HTML -->
+                    <div
+                        class="group flex flex-col items-center text-center p-4 rounded-lg shadow-lg transition-all duration-300 appearAnimation bg-gray-800/30 border border-gray-700/30">
+                        <svg class="w-10 h-10 text-white group-hover:text-white-100" fill="currentColor"
+                            viewBox="0 0 24 24">
+                            <path
+                                d="M1.5 0h21l-1.91 21.563L11.977 24l-8.564-2.438L1.5 0zm7.031 9.75l-.232-2.718 10.059.003.23-2.622L5.412 4.41l.698 8.01h9.126l-.326 3.426-2.91.804-2.955-.81-.188-2.11H6.248l.33 4.171L12 19.351l5.379-1.443.744-8.157H8.531z" />
+                        </svg>
+                        <h2 class="text-lg text-white font-semibold mt-2 group-hover:text-white-100">HTML</h2>
+                    </div>
+
+                    <!-- CSS -->
+                    <div
+                        class="group flex flex-col items-center text-center p-4 rounded-lg shadow-lg transition-all duration-300  appearAnimation bg-gray-800/30 border border-gray-700/30">
+                        <svg class="w-10 h-10 text-white group-hover:text-white-100" fill="currentColor"
+                            viewBox="0 0 24 24">
+                            <path
+                                d="M1.5 0h21l-1.91 21.563L11.977 24l-8.565-2.438L1.5 0zm17.09 4.413L5.41 4.41l.213 2.622 10.125.002-.255 2.716h-6.64l.24 2.573h6.182l-.366 3.523-2.91.804-2.956-.81-.188-2.11h-2.61l.29 3.855L12 19.288l5.373-1.53L18.59 4.414z" />
+                        </svg>
+                        <h2 class="text-lg text-white font-semibold mt-2 group-hover:text-white-100">CSS</h2>
+                    </div>
+
+                    <!-- JavaScript -->
+                    <div
+                        class="group flex flex-col items-center text-center p-4 rounded-lg shadow-lg transition-all duration-300 appearAnimation bg-gray-800/30 border border-gray-700/30">
+                        <svg class="w-10 h-10 text-white group-hover:text-white-100" fill="currentColor"
+                            viewBox="0 0 24 24">
+                            <path
+                                d="M0 0h24v24H0V0zm22.034 18.276c-.175-1.095-.888-2.015-3.003-2.873-.736-.345-1.554-.585-1.797-1.14-.091-.33-.105-.51-.046-.705.15-.646.915-.84 1.515-.66.39.12.75.42.976.9 1.034-.676 1.034-.676 1.755-1.125-.27-.42-.404-.601-.586-.78-.63-.705-1.469-1.065-2.834-1.034l-.705.089c-.676.165-1.32.525-1.71 1.005-1.14 1.291-.811 3.541.569 4.471 1.365 1.02 3.361 1.244 3.616 2.205.24 1.17-.87 1.545-1.966 1.41-.811-.18-1.26-.586-1.755-1.336l-1.83 1.051c.21.48.45.689.81 1.109 1.74 1.756 6.09 1.666 6.871-1.004.029-.09.24-.705.074-1.65l.046.067zm-8.983-7.245h-2.248c0 1.938-.009 3.864-.009 5.805 0 1.232.063 2.363-.138 2.711-.33.689-1.18.601-1.566.48-.396-.196-.597-.466-.83-.855-.063-.105-.11-.196-.127-.196l-1.825 1.125c.305.63.75 1.172 1.324 1.517.855.51 2.004.675 3.207.405.783-.226 1.458-.691 1.811-1.411.51-.93.402-2.07.397-3.346.012-2.054 0-4.109 0-6.179l.004-.056z" />
+                        </svg>
+                        <h2 class="text-lg text-white font-semibold mt-2 group-hover:text-white-100">JavaScript</h2>
+                    </div>
+
+                    <!-- Tailwind -->
+                    <div
+                        class="group flex flex-col items-center text-center p-4 rounded-lg shadow-lg transition-all duration-300  appearAnimation bg-gray-800/30 border border-gray-700/30">
+                        <svg class="w-10 h-10 text-white group-hover:text-white-100" fill="currentColor"
+                            viewBox="0 0 24 24">
+                            <path
+                                d="M12.001,4.8c-3.2,0-5.2,1.6-6,4.8c1.2-1.6,2.6-2.2,4.2-1.8c0.913,0.228,1.565,0.89,2.288,1.624 C13.666,10.618,15.027,12,18.001,12c3.2,0,5.2-1.6,6-4.8c-1.2,1.6-2.6,2.2-4.2,1.8c-0.913-0.228-1.565-0.89-2.288-1.624 C16.337,6.182,14.976,4.8,12.001,4.8z M6.001,12c-3.2,0-5.2,1.6-6,4.8c1.2-1.6,2.6-2.2,4.2-1.8c0.913,0.228,1.565,0.89,2.288,1.624 c1.177,1.194,2.538,2.576,5.512,2.576c3.2,0,5.2-1.6,6-4.8c-1.2,1.6-2.6,2.2-4.2,1.8c-0.913-0.228-1.565-0.89-2.288-1.624 C10.337,13.382,8.976,12,6.001,12z" />
+                        </svg>
+                        <h2 class="text-lg text-white font-semibold mt-2 group-hover:text-white-100">Tailwind CSS</h2>
+                    </div>
+
+                    <!-- Bootstrap -->
+                    <div
+                        class="group flex flex-col items-center text-center p-4 rounded-lg shadow-lg transition-all duration-300  appearAnimation bg-gray-800/30 border border-gray-700/30">
+                        <svg class="w-10 h-10 text-white group-hover:text-white-100" fill="currentColor"
+                            viewBox="0 0 24 24">
+                            <path
+                                d="M11.77 11.24H9.956V8.202h2.152c1.17 0 1.834.522 1.834 1.466 0 1.008-.773 1.572-2.174 1.572zm.324 1.206H9.957v3.348h2.231c1.459 0 2.232-.585 2.232-1.685s-.795-1.663-2.326-1.663zM24 11.39v1.218c-1.128.108-1.817.944-2.226 2.268-.407 1.319-.463 2.937-.42 4.186.045 1.3-.968 2.5-2.337 2.5H4.985c-1.37 0-2.383-1.2-2.337-2.5.043-1.249-.013-2.867-.42-4.186-.41-1.324-1.1-2.16-2.228-2.268V11.39c1.128-.108 1.819-.944 2.227-2.268.408-1.319.464-2.937.42-4.186-.045-1.3.968-2.5 2.338-2.5h14.032c1.37 0 2.382 1.2 2.337 2.5-.043 1.249.013 2.867.42 4.186.409 1.324 1.098 2.16 2.226 2.268zm-7.927 2.817c0-1.354-.953-2.333-2.368-2.488v-.057c1.04-.169 1.856-1.135 1.856-2.213 0-1.537-1.213-2.538-3.062-2.538h-4.16v10.172h4.181c2.218 0 3.553-1.086 3.553-2.876z" />
+                        </svg>
+                        <h2 class="text-lg text-white font-semibold mt-2 group-hover:text-white-100">Bootstrap 5</h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex-1">
+                <ol class="relative border-s border-gray-200 appearAnimation">
+                    <li class="mb-10 ms-4">
+                        <div class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -start-1.5 border border-white">
+                        </div>
+                        <time class="mb-1 text-sm font-normal leading-none text-gray-300">May
+                            2025</time>
+                        <h3 class="text-lg font-semibold text-white">Erasmus+ Internship in Tenerife,
+                            Spain</h3>
+                        <p class="text-base font-normal text-gray-300">Worked with a team of five to
+                            design a 3D model of a car.</p>
+                    </li>
+                    <li class="ms-4">
+                        <div class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -start-1.5 border border-white">
+                        </div>
+                        <time class="mb-1 text-sm font-normal leading-none text-gray-300">September
+                            2021 - Present</time>
+                        <h3 class="text-lg font-semibold text-white">Nyíregyházi SZC Széchényi István
+                            Technikum és Kollégium</h3>
+                        <p class="text-base font-normal text-gray-300">Started technical school,
+                            learning HTML, CSS, JavaScript, Python, and Java as the main focus.</p>
+                    </li>
+                </ol>
+            </div>
+        </div>
+        <div class=" w-full flex text-center justify-center">
+            <svg class="w-8 h-40 text-white bounce" fill="none" stroke="currentColor" stroke-width="3"
+                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 5v14M19 12l-7 7-7-7" />
+            </svg>
         </div>
     </section>
 
-    <!-- About Section -->
-    <section id="about" class="py-20 px-6">
-        <div class="max-w-4xl mx-auto card-glass rounded-2xl p-8 md:p-12 shadow-xl">
-            <h2 class="text-3xl md:text-4xl font-bold mb-8 gradient-text text-center">About Me</h2>
-            <div class="grid md:grid-cols-2 gap-8 items-center">
-                <div>
-                    <p class="text-lg mb-6">
-                        Hi! I'm <span class="font-semibold text-purple-300">Szilágyi János</span> but most people know me as <span class="font-semibold text-indigo-300">Asery</span>. I'm <span id="age"></span> years old and currently living in Nyíregyháza.
-                    </p>
-                    <p class="text-lg mb-6">
-                        I'm a high school student majoring in <span class="font-semibold text-blue-300">software development and testing</span>, where I'm learning to turn complex problems into elegant solutions.
-                    </p>
-                    <p class="text-lg">
-                        When I'm not coding, you can find me streaming, making music, or staying active through sports and fitness. I have a passion for bringing creative ideas to life in both digital and physical spaces.
-                    </p>
-                </div>
-                <div class="grid grid-cols-2 gap-4">
-                    <div class="bg-slate-900/70 p-6 rounded-xl border border-slate-800/50 flex flex-col items-center hover:bg-slate-800/50 hover:border-purple-500/30 transition-all duration-300 group">
-                        <div class="w-16 h-16 rounded-full bg-indigo-500/20 flex items-center justify-center mb-4 group-hover:bg-indigo-500/30 transition-all duration-300">
-                            <i class="fas fa-laptop-code text-2xl text-indigo-400 group-hover:scale-110 transition-transform duration-300"></i>
-                        </div>
-                        <h3 class="font-bold text-center">Developer</h3>
-                    </div>
-                    <div class="bg-slate-800/50 p-6 rounded-xl border border-slate-700/50 flex flex-col items-center hover:bg-slate-800/50 hover:border-purple-500/30 transition-all duration-300 group">
-                        <div class="w-16 h-16 rounded-full bg-purple-500/20 flex items-center justify-center mb-4 group-hover:bg-purple-500/30 transition-all duration-300">
-                            <i class="fas fa-music text-2xl text-purple-400 group-hover:scale-110 transition-transform duration-300"></i>
-                        </div>
-                        <h3 class="font-bold text-center">Producer</h3>
-                    </div>
-                    <div class="bg-slate-800/50 p-6 rounded-xl border border-slate-700/50 flex flex-col items-center hover:bg-slate-800/50 hover:border-purple-500/30 transition-all duration-300 group">
-                        <div class="w-16 h-16 rounded-full bg-pink-500/20 flex items-center justify-center mb-4 group-hover:bg-pink-500/30 transition-all duration-300">
-                            <i class="fas fa-gamepad text-2xl text-pink-400 group-hover:scale-110 transition-transform duration-300"></i>
-                        </div>
-                        <h3 class="font-bold text-center">Streamer</h3>
-                    </div>
-                    <div class="bg-slate-800/50 p-6 rounded-xl border border-slate-700/50 flex flex-col items-center hover:bg-slate-800/50 hover:border-purple-500/30 transition-all duration-300 group">
-                        <div class="w-16 h-16 rounded-full bg-blue-500/20 flex items-center justify-center mb-4 group-hover:bg-blue-500/30 transition-all duration-300">
-                            <i class="fas fa-volleyball-ball text-2xl text-blue-400 group-hover:scale-110 transition-transform duration-300"></i>
-                        </div>
-                        <h3 class="font-bold text-center">Athlete</h3>
-                    </div>
+    <section id="portfolio" class="pb-96 pt-52">
+        <h1 class="text-6xl text-center text-white font-extrabold tracking-tigh appearAnimation pb-16">My Setup</h1>
+        <div class="flex flex-col md:flex-row justify-center items-center px-6 xl:px-64 lg:px-24">
+            <div class="flex-1 appearImage">
+                <div class="relative">
+                    <img src="setup.png" id="image" class="rounded transition hover:scale-105 lg:max-w-[420px] max-w-[320px] cursor-pointer">
                 </div>
             </div>
-        </div>
-    </section>
+            <div class="flex-1 lg:px-8 py-12">
+                <h1
+                    class="text-3xl text-center text-white font-extrabold tracking-tigh appearAnimation pb-8 lg:pt-0 md:pt-0 sm:pt-24">
+                    PC</h1>
+                <p class="text-2xl text-gray-300 appearAnimation md:text-left text-center mb-8">
+                  <ol style="border-left: 2px solid #ccc; padding-left: 2rem; position: relative; color: white; max-width: 500px; margin-left: auto; margin-right: 5rem;">
+  <li style="position: relative; margin-bottom: 2rem; padding-left: 1rem;">
+    <span style="position: absolute; left: -1.1rem; top: 0.3rem; width: 0.75rem; height: 0.75rem; background-color: pink; border: 2px solid white; border-radius: 50%; display: inline-block;"></span>
+    <h3>🧠 <strong>CPU</strong></h3>
+    <p style="color: #ccc;">Ryzen 7 7800X3D</p>
+  </li>
+  <li style="position: relative; margin-bottom: 2rem; padding-left: 1rem;">
+    <span style="position: absolute; left: -1.1rem; top: 0.3rem; width: 0.75rem; height: 0.75rem; background-color: purple; border: 2px solid white; border-radius: 50%; display: inline-block;"></span>
+    <h3>🎮 <strong>GPU</strong></h3>
+    <p style="color: #ccc;">RTX 4060</p>
+  </li>
+  <li style="position: relative; margin-bottom: 2rem; padding-left: 1rem;">
+    <span style="position: absolute; left: -1.1rem; top: 0.3rem; width: 0.75rem; height: 0.75rem; background-color: deepskyblue; border: 2px solid white; border-radius: 50%; display: inline-block;"></span>
+    <h3>🧬 <strong>RAM</strong></h3>
+    <p style="color: #ccc;">G.Skill TridentZ 2x16GB 6400MHz DDR5</p>
+  </li>
+  <li style="position: relative; margin-bottom: 2rem; padding-left: 1rem;">
+    <span style="position: absolute; left: -1.1rem; top: 0.3rem; width: 0.75rem; height: 0.75rem; background-color: limegreen; border: 2px solid white; border-radius: 50%; display: inline-block;"></span>
+    <h3>🧩 <strong>Motherboard</strong></h3>
+    <p style="color: #ccc;">ASRock B650M PG Riptide</p>
+  </li>
+  <li style="position: relative; margin-bottom: 2rem; padding-left: 1rem;">
+    <span style="position: absolute; left: -1.1rem; top: 0.3rem; width: 0.75rem; height: 0.75rem; background-color: gold; border: 2px solid white; border-radius: 50%; display: inline-block;"></span>
+    <h3>🚀 <strong>SSD 1</strong></h3>
+    <p style="color: #ccc;">1TB Samsung 980 Pro M.2</p>
+  </li>
+  <li style="position: relative; margin-bottom: 2rem; padding-left: 1rem;">
+    <span style="position: absolute; left: -1.1rem; top: 0.3rem; width: 0.75rem; height: 0.75rem; background-color: gold; border: 2px solid white; border-radius: 50%; display: inline-block;"></span>
+    <h3>🚀 <strong>SSD 2</strong></h3>
+    <p style="color: #ccc;">1TB Samsung 990 Pro M.2</p>
+  </li>
+  <li style="position: relative; margin-bottom: 2rem; padding-left: 1rem;">
+    <span style="position: absolute; left: -1.1rem; top: 0.3rem; width: 0.75rem; height: 0.75rem; background-color: orange; border: 2px solid white; border-radius: 50%; display: inline-block;"></span>
+    <h3>📦 <strong>HDD</strong></h3>
+    <p style="color: #ccc;">2TB WD Black</p>
+  </li>
+  <li style="position: relative; margin-bottom: 2rem; padding-left: 1rem;">
+    <span style="position: absolute; left: -1.1rem; top: 0.3rem; width: 0.75rem; height: 0.75rem; background-color: red; border: 2px solid white; border-radius: 50%; display: inline-block;"></span>
+    <h3>⚡ <strong>PSU</strong></h3>
+    <p style="color: #ccc;">Seasonic G12 850W</p>
+  </li>
+  <li style="position: relative; margin-bottom: 2rem; padding-left: 1rem;">
+    <span style="position: absolute; left: -1.1rem; top: 0.3rem; width: 0.75rem; height: 0.75rem; background-color: cyan; border: 2px solid white; border-radius: 50%; display: inline-block;"></span>
+    <h3>❄️ <strong>CPU Cooler</strong></h3>
+    <p style="color: #ccc;">NZXT Kraken Elite 280 RGB</p>
+  </li>
+  <li style="position: relative; margin-bottom: 2rem; padding-left: 1rem;">
+    <span style="position: absolute; left: -1.1rem; top: 0.3rem; width: 0.75rem; height: 0.75rem; background-color: indigo; border: 2px solid white; border-radius: 50%; display: inline-block;"></span>
+    <h3>🖥️ <strong>Case</strong></h3>
+    <p style="color: #ccc;">NZXT H5 FLOW BLACK</p>
+  </li>
+</ol>
 
-    <!-- Passions Section -->
-    <section id="passions" class="py-20 px-6 bg-gradient-to-b from-slate-900/50 to-slate-900/0">
-        <div class="max-w-6xl mx-auto">
-            <h2 class="text-3xl md:text-4xl font-bold mb-16 gradient-text text-center">My Passions</h2>
-            
-            <div class="grid md:grid-cols-2 gap-8 mb-16" id="passion-cards">
-                <div class="card-glass rounded-2xl p-8 flex flex-col">
-                    <div class="w-20 h-20 rounded-xl bg-indigo-500/20 flex items-center justify-center mb-6">
-                        <i class="fas fa-code text-3xl text-indigo-400"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-4">Software Development</h3>
-                    <p class="text-slate-300 mb-6">
-                        Currently studying software development and testing in high school, I enjoy solving problems and building functional, beautiful applications. I stream my coding sessions whenever possible to share my learning journey.
-                    </p>
-                    <div class="mt-auto flex flex-wrap gap-2">
-                        <span class="px-3 py-1 bg-indigo-500/20 text-indigo-300 rounded-full text-sm">Coding</span>
-                        <span class="px-3 py-1 bg-indigo-500/20 text-indigo-300 rounded-full text-sm">Streaming</span>
-                        <span class="px-3 py-1 bg-indigo-500/20 text-indigo-300 rounded-full text-sm">Problem Solving</span>
-                    </div>
-                </div>
-                
-                <div class="card-glass rounded-2xl p-8 flex flex-col">
-                    <div class="w-20 h-20 rounded-xl bg-purple-500/20 flex items-center justify-center mb-6">
-                        <i class="fas fa-headphones text-3xl text-purple-400"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-4">Music Production</h3>
-                    <p class="text-slate-300 mb-6">
-                        As a hobbyist producer, I love both listening to and creating music. There's something magical about translating emotions into sound. I also play the guitar, blending digital production with traditional instrumentation.
-                    </p>
-                    <div class="mt-auto flex flex-wrap gap-2">
-                        <span class="px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full text-sm">Production</span>
-                        <span class="px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full text-sm">Guitar</span>
-                        <span class="px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full text-sm">Sound Design</span>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="grid md:grid-cols-3 gap-6" id="hobby-cards">
-                <div class="card-glass rounded-xl p-6 flex items-center space-x-4">
-                    <div class="w-14 h-14 rounded-lg bg-pink-500/20 flex items-center justify-center">
-                        <i class="fas fa-dumbbell text-xl text-pink-400 hobby-icon"></i>
-                    </div>
-                    <div>
-                        <h4 class="font-semibold">Fitness Training</h4>
-                        <p class="text-sm text-slate-400">Staying active and healthy</p>
-                    </div>
-                </div>
-                
-                <div class="card-glass rounded-xl p-6 flex items-center space-x-4">
-                    <div class="w-14 h-14 rounded-lg bg-blue-500/20 flex items-center justify-center">
-                        <i class="fas fa-volleyball-ball text-xl text-blue-400 hobby-icon"></i>
-                    </div>
-                    <div>
-                        <h4 class="font-semibold">Volleyball</h4>
-                        <p class="text-sm text-slate-400">Team sports enthusiast</p>
-                    </div>
-                </div>
-                
-                <div class="card-glass rounded-xl p-6 flex items-center space-x-4">
-                    <div class="w-14 h-14 rounded-lg bg-green-500/20 flex items-center justify-center">
-                        <i class="fas fa-lightbulb text-xl text-green-400 hobby-icon"></i>
-                    </div>
-                    <div>
-                        <h4 class="font-semibold">Creativity</h4>
-                        <p class="text-sm text-slate-400">Bringing ideas to life</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Creative Process Section -->
-    <section class="py-20 px-6 parallax" style="background-image: url('https://images.unsplash.com/photo-1505506874110-6a7a69069a08?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80'); background-color: rgba(0,0,0,0.7); background-blend-mode: multiply;">
-        <div class="max-w-4xl mx-auto text-center">
-            <div class="rounded-2xl p-8 md:p-12 backdrop-blur-sm bg-slate-900/70 border border-slate-800/50">
-                <h2 class="text-3xl md:text-4xl font-bold mb-6 gradient-text">Creative Philosophy</h2>
-                <p class="text-xl md:text-2xl italic mb-8">
-                    "I love turning creative ideas into reality, whether through code, music, or physical activity. Each medium offers unique ways to express myself and connect with others."
                 </p>
-                <div class="w-20 h-1 bg-gradient-to-r from-indigo-500 to-pink-500 mx-auto mb-8"></div>
-                <p class="text-lg">
-                    This drive to create fuels everything I do - from debugging code to composing melodies to perfecting a volleyball serve. The process of making something from nothing is endlessly fascinating to me.
-                </p>
-            </div>
-        </div>
-    </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="py-20 px-6">
-        <div class="max-w-4xl mx-auto">
-            <h2 class="text-3xl md:text-4xl font-bold mb-16 gradient-text text-center">Let's Connect</h2>
-            
-            <div class="grid md:grid-cols-2 gap-12">
-                <div>
-                    <h3 class="text-2xl font-semibold mb-6">Get in Touch</h3>
-                    <p class="mb-8 text-slate-300">
-                        Want to collaborate on a project, talk about music production, or just say hello? I'd love to hear from you!
-                    </p>
+                <div class="flex flex-wrap justify-center gap-4 mb-8">
                     
-                    <div class="space-y-6">
-                        <div class="flex items-center space-x-4">
-                            <div class="w-12 h-12 rounded-full bg-indigo-500/20 flex items-center justify-center">
-                                <i class="fas fa-envelope text-indigo-400"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-medium">Email</h4>
-                                <p class="text-sm text-slate-400">aseryval@gmail.com</p>
-                            </div>
-                        </div>
-                        
-                        <div class="flex items-center space-x-4">
-                            <div class="w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center">
-                                <i class="fab fa-twitch text-purple-400"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-medium">Twitch</h4>
-                                <p class="text-sm text-slate-400">twitch.tv/AseryTTV</p>
-                            </div>
-                        </div>
-                    </div>
                 </div>
-                
-                <div class="card-glass rounded-2xl p-8">
-                    <form class="space-y-6" action="https://api.web3forms.com/submit" method="POST">
-                        <input type="hidden" name="access_key" value="f647812d-e98c-42d8-9637-7f6b674fc725">
-                        <div>
-                            <label for="name" class="block text-sm font-medium mb-2">Name</label>
-                            <input type="text" id="name" name="name" class="w-full px-4 py-3 bg-slate-900/70 border border-slate-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent transition-all duration-300 hover:border-purple-500/50" placeholder="Your name">
-                        </div>
-                        
-                        <div>
-                            <label for="email" class="block text-sm font-medium mb-2">Email</label>
-                            <input type="email" id="email" name="email" class="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent" placeholder="your@email.com">
-                        </div>
-                        
-                        <div>
-                            <label for="message" class="block text-sm font-medium mb-2">Message</label>
-                            <textarea id="message" name="message" rows="4" class="w-full px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent" placeholder="Your message..."></textarea>
-                        </div>
-                        
-                        <button type="submit" class="w-full px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-lg font-medium hover:opacity-90 transition">
-                            Send Message
-                        </button>
-                    </form>
+
+                <div class="flex justify-center gap-4 appearAnimation">
+                    <button data-view-project
+                        class="inline-flex items-center text-white bg-gray-800/30 border border-gray-700/30 hover:text-white-100 px-6 py-3 rounded-lg hover:scale-110 transition-all duration-300">
+                        <span>View Picture</span>
+                        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="flex flex-col md:flex-row justify-center items-center px-6 xl:px-64 lg:px-24">
+            <div class="flex-1 appearImage">
+                <div class="relative">
+                    <img src="peripherials.png" class="rounded transition hover:scale-105 lg:max-w-[420px] max-w-[320px] cursor-pointer">
+                </div>
+            </div>
+            <div class="flex-1 lg:px-8 py-12">
+                <h1
+                    class="text-3xl text-center text-white font-extrabold tracking-tigh appearAnimation pb-8 lg:pt-0 md:pt-0 sm:pt-24">
+                    Peripherials
+                </h1>
+                <p class="text-2xl text-gray-300 appearAnimation md:text-left text-center mb-8">
+                    <ol style="border-left: 2px solid #ccc; padding-left: 2rem; position: relative; color: white; max-width: 500px; margin-left: auto; margin-right: 5rem;">
+  <li style="position: relative; margin-bottom: 2rem; padding-left: 1rem;">
+    <span style="position: absolute; left: -1.1rem; top: 0.3rem; width: 0.75rem; height: 0.75rem; background-color: pink; border: 2px solid white; border-radius: 50%; display: inline-block;"></span>
+    <h3>🖱️ <strong>Mouse</strong></h3>
+    <p style="color: #ccc;">Logitech G Pro X Superlight</p>
+  </li>
+  <li style="position: relative; margin-bottom: 2rem; padding-left: 1rem;">
+    <span style="position: absolute; left: -1.1rem; top: 0.3rem; width: 0.75rem; height: 0.75rem; background-color: purple; border: 2px solid white; border-radius: 50%; display: inline-block;"></span>
+    <h3>⌨️ <strong>Keyboard</strong></h3>
+    <p style="color: #ccc;">Razer Huntsman Mini V3 Pro</p>
+  </li>
+  <li style="position: relative; margin-bottom: 2rem; padding-left: 1rem;">
+    <span style="position: absolute; left: -1.1rem; top: 0.3rem; width: 0.75rem; height: 0.75rem; background-color: #60a5fa; border: 2px solid white; border-radius: 50%; display: inline-block;"></span>
+    <h3>🖼️ <strong>Mousepad</strong></h3>
+    <p style="color: #ccc;">SteelSeries QCK 3XL RGB</p>
+  </li>
+  <li style="position: relative; margin-bottom: 2rem; padding-left: 1rem;">
+    <span style="position: absolute; left: -1.1rem; top: 0.3rem; width: 0.75rem; height: 0.75rem; background-color: #ef4444; border: 2px solid white; border-radius: 50%; display: inline-block;"></span>
+    <h3>🎙️ <strong>Microphone</strong></h3>
+    <p style="color: #ccc;">HyperX Quadcast S</p>
+  </li>
+  <li style="position: relative; margin-bottom: 2rem; padding-left: 1rem;">
+    <span style="position: absolute; left: -1.1rem; top: 0.3rem; width: 0.75rem; height: 0.75rem; background-color: gold; border: 2px solid white; border-radius: 50%; display: inline-block;"></span>
+    <h3>🖥️ <strong>Monitor 1</strong></h3>
+    <p style="color: #ccc;">Asus VG279Q 280Hz</p>
+  </li>
+  <li style="position: relative; margin-bottom: 2rem; padding-left: 1rem;">
+    <span style="position: absolute; left: -1.1rem; top: 0.3rem; width: 0.75rem; height: 0.75rem; background-color: gold; border: 2px solid white; border-radius: 50%; display: inline-block;"></span>
+    <h3>🖥️ <strong>Monitor 2</strong></h3>
+    <p style="color: #ccc;">Asus VG278GM 165Hz</p>
+  </li>
+  <li style="position: relative; margin-bottom: 2rem; padding-left: 1rem;">
+    <span style="position: absolute; left: -1.1rem; top: 0.3rem; width: 0.75rem; height: 0.75rem; background-color: limegreen; border: 2px solid white; border-radius: 50%; display: inline-block;"></span>
+    <h3>🎧 <strong>Headset</strong></h3>
+    <p style="color: #ccc;">Logitech G Pro X</p>
+  </li>
+  <li style="position: relative; margin-bottom: 2rem; padding-left: 1rem;">
+    <span style="position: absolute; left: -1.1rem; top: 0.3rem; width: 0.75rem; height: 0.75rem; background-color: indigo; border: 2px solid white; border-radius: 50%; display: inline-block;"></span>
+    <h3>📷 <strong>Webcam</strong></h3>
+    <p style="color: #ccc;">Logitech Stream Cam</p>
+  </li>
+  <li style="position: relative; margin-bottom: 2rem; padding-left: 1rem;">
+    <span style="position: absolute; left: -1.1rem; top: 0.3rem; width: 0.75rem; height: 0.75rem; background-color: orange; border: 2px solid white; border-radius: 50%; display: inline-block;"></span>
+    <h3>🔊 <strong>Speaker</strong></h3>
+    <p style="color: #ccc;">JBL Xtreme 3</p>
+  </li>
+  <li style="position: relative; margin-bottom: 2rem; padding-left: 1rem;">
+    <span style="position: absolute; left: -1.1rem; top: 0.3rem; width: 0.75rem; height: 0.75rem; background-color: cyan; border: 2px solid white; border-radius: 50%; display: inline-block;"></span>
+    <h3>📱 <strong>Phone</strong></h3>
+    <p style="color: #ccc;">iPhone 15 Pro</p>
+  </li>
+</ol>
+
+                </p>
+
+                <div class="flex flex-wrap justify-center gap-4 mb-8">
+                    
+                </div>
+
+                <div class="flex justify-center gap-4 appearAnimation">
+                    <button data-portfolio-image
+                        class="inline-flex items-center text-white bg-gray-800/30 border border-gray-700/30 hover:text-white-100 px-6 py-3 rounded-lg hover:scale-110 transition-all duration-300">
+                        <span>View Picture</span>
+                        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- portfolio message -->
+        <p class="text-center text-gray-300 mt-16 mb-8 text-sm appearAnimation px-6 xl:px-64 lg:px-24">
+            I'm actively streaming on twitch. <a data-scroll-to="contact"
+                class="hover:text-white transition-colors duration-300 link-underline cursor-pointer">Click to go to my twitch channel!</a>
+        </p>
+        <div class=" w-full flex text-center justify-center">
+            <svg class="w-8 h-40 text-white bounce" fill="none" stroke="currentColor" stroke-width="3"
+                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 5v14M19 12l-7 7-7-7" />
+            </svg>
+        </div>
+    </section>
+
+    <section id="contact" class="pb-52 pt-52">
+        <h1 class="text-6xl text-center text-white font-extrabold tracking-tigh appearAnimation pb-16">Contact <span
+                class="inline-block animate-gradient bg-gradient-to-r from-white-200 via-white-400 to-white-200 bg-clip-text text-transparent bg-300% hover:scale-110 transition-transform duration-300 hover:text-shadow-glow cursor-pointer font-black">
+                Me
+            </span></h1>
+        <div class="flex flex-col md:flex-row justify-center items-center px-6 xl:px-64 lg:px-24">
+            <div class="flex-1">
+                <p class="text-gray-300 pt-7 text-2xl md:text-left text-center appearAnimation">
+                    Let's connect! Whether you have a project in mind or just want to chat about web development, producing, guitar, sports, I'd
+                    love to hear from you.
+                </p>
+            </div>
+            <div class="flex-1 py-12">
+                <div class="flex flex-wrap justify-center items-center gap-8 px-4">
+                    <!-- Twitter -->
+                    <a href="https://x.com/AseryTTV" target="_blank"
+                        class="group flex flex-col items-center text-center p-4 rounded-lg shadow-lg transition-all duration-300 appearAnimation bg-gray-800/30 border border-gray-700/30">
+                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="40" height="40" viewBox="0 0 50 50"
+                          style="fill:#FFFFFF;">
+                          <path d="M 5.9199219 6 L 20.582031 27.375 L 6.2304688 44 L 9.4101562 44 L 21.986328 29.421875 L 31.986328 44 L 44 44 L 28.681641 21.669922 L 42.199219 6 L 39.029297 6 L 27.275391 19.617188 L 17.933594 6 L 5.9199219 6 z M 9.7167969 8 L 16.880859 8 L 40.203125 42 L 33.039062 42 L 9.7167969 8 z"></path>
+                        </svg>
+                        <h2 class="text-lg text-white font-semibold mt-2 group-hover:text-white-100">Twitter</h2>
+                    </a>
+
+                    <!-- Twitch -->
+                    <a href="https://twitch.tv/AseryTTV" target="_blank"
+                        class="group flex flex-col items-center text-center p-4 rounded-lg shadow-lg transition-all duration-300 appearAnimation bg-gray-800/30 border border-gray-700/30">
+                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="40" height="40" viewBox="0 0 50 50"
+style="fill:#FFFFFF;">
+<path d="M 5.3125 1 L 5.0625 1.65625 L 2.0625 9.65625 L 2 9.8125 L 2 43 L 13 43 L 13 49 L 20.40625 49 L 20.71875 48.71875 L 26.4375 43 L 35.40625 43 L 35.71875 42.71875 L 48 30.4375 L 48 1 Z M 6.6875 3 L 46 3 L 46 29.59375 L 34.59375 41 L 25.59375 41 L 19.59375 47 L 15 47 L 15 41 L 4 41 L 4 10.1875 Z M 10 5 L 10 35 L 18 35 L 18 42.40625 L 19.71875 40.71875 L 25.4375 35 L 37.40625 35 L 37.71875 34.71875 L 43.71875 28.71875 L 44 28.40625 L 44 5 Z M 12 7 L 42 7 L 42 27.5625 L 36.5625 33 L 24.59375 33 L 24.28125 33.28125 L 20 37.5625 L 20 33 L 12 33 Z M 20 13 L 20 27 L 26 27 L 26 13 Z M 30 13 L 30 27 L 36 27 L 36 13 Z M 22 15 L 24 15 L 24 25 L 22 25 Z M 32 15 L 34 15 L 34 25 L 32 25 Z"></path>
+</svg>
+                        <h2 class="text-lg text-white font-semibold mt-2 group-hover:text-white-100">Twitch</h2>
+                    </a>
+
+                    <!-- Tik Tok -->
+                    <a href="https://www.tiktok.com/@szlgy_janos" target="_blank"
+                        class="group flex flex-col items-center text-center p-4 rounded-lg shadow-lg transition-all duration-300 appearAnimation bg-gray-800/30 border border-gray-700/30">
+                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="40" height="40" viewBox="0,0,256,256"
+style="fill:#FFFFFF;">
+<g transform="translate(-51.2,-51.2) scale(1.4,1.4)"><g fill="#ffffff" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(5.12,5.12)"><path d="M9,4c-2.75042,0 -5,2.24958 -5,5v32c0,2.75042 2.24958,5 5,5h32c2.75042,0 5,-2.24958 5,-5v-32c0,-2.75042 -2.24958,-5 -5,-5zM9,6h32c1.67158,0 3,1.32842 3,3v32c0,1.67158 -1.32842,3 -3,3h-32c-1.67158,0 -3,-1.32842 -3,-3v-32c0,-1.67158 1.32842,-3 3,-3zM26.04297,10c-0.5515,0.00005 -0.99887,0.44655 -1,0.99805c0,0 -0.01098,4.87522 -0.02148,9.76172c-0.0053,2.44325 -0.01168,4.88902 -0.01562,6.73047c-0.00394,1.84145 -0.00586,3.0066 -0.00586,3.10352c0,1.81526 -1.64858,3.29883 -3.52734,3.29883c-1.86379,0 -3.35156,-1.48972 -3.35156,-3.35352c0,-1.86379 1.48777,-3.35156 3.35156,-3.35156c0.06314,0 0.1904,0.02075 0.4082,0.04688c0.28415,0.03406 0.56927,-0.05523 0.78323,-0.24529c0.21396,-0.19006 0.33624,-0.46267 0.33591,-0.74885v-4.20117c-0.00005,-0.528 -0.41054,-0.965 -0.9375,-0.99805c-0.15583,-0.0098 -0.35192,-0.0293 -0.58984,-0.0293c-5.24953,0 -9.52734,4.27782 -9.52734,9.52734c0,5.24953 4.27782,9.52734 9.52734,9.52734c5.24938,0 9.52734,-4.27782 9.52734,-9.52734v-9.04883c1.45461,1.16341 3.26752,1.90039 5.26953,1.90039c0.27306,0 0.53277,-0.01618 0.78125,-0.03906c0.51463,-0.04749 0.90832,-0.47927 0.9082,-0.99609v-4.66992c0.0003,-0.52448 -0.40463,-0.9601 -0.92773,-0.99805c-3.14464,-0.22561 -5.65141,-2.67528 -5.97852,-5.79102c-0.05305,-0.50925 -0.48214,-0.89619 -0.99414,-0.89648zM27.04102,12h2.28125c0.72678,3.2987 3.30447,5.8144 6.63672,6.44531v2.86523c-2.13887,-0.10861 -4.01749,-1.1756 -5.12305,-2.85742c-0.24284,-0.36962 -0.69961,-0.53585 -1.12322,-0.40877c-0.4236,0.12708 -0.71344,0.51729 -0.71272,0.95955v11.53516c0,4.16848 -3.35873,7.52734 -7.52734,7.52734c-4.16848,0 -7.52734,-3.35887 -7.52734,-7.52734c0,-4.00052 3.12077,-7.17588 7.05469,-7.43164v2.17578c-2.71358,0.25252 -4.87891,2.47904 -4.87891,5.25586c0,2.94421 2.40735,5.35352 5.35156,5.35352c2.92924,0 5.52734,-2.30609 5.52734,-5.29883c0,0.04892 0.00186,-1.25818 0.00586,-3.09961c0.0039,-1.84143 0.01037,-4.28722 0.01563,-6.73047c0.0094,-4.3869 0.0177,-7.91447 0.01953,-8.76367z"></path></g></g></g>
+</svg>
+                        <h2 class="text-lg text-white font-semibold mt-2 group-hover:text-white-100">Tik Tok</h2>
+                    </a>
+
+                    <!-- YouTube -->
+                    <a href="https://www.youtube.com/@AseryVL" target="_blank"
+                        class="group flex flex-col items-center text-center p-4 rounded-lg shadow-lg transition-all duration-300 appearAnimation bg-gray-800/30 border border-gray-700/30">
+                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="40" height="40" viewBox="0,0,256,256"
+style="fill:#FFFFFF;">
+<g fill="#ffffff" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(5.12,5.12)"><path d="M24.40234,9c-6.60156,0 -12.80078,0.5 -16.10156,1.19922c-2.19922,0.5 -4.10156,2 -4.5,4.30078c-0.39844,2.39844 -0.80078,6 -0.80078,10.5c0,4.5 0.39844,8 0.89844,10.5c0.40234,2.19922 2.30078,3.80078 4.5,4.30078c3.50391,0.69922 9.5,1.19922 16.10156,1.19922c6.60156,0 12.59766,-0.5 16.09766,-1.19922c2.20313,-0.5 4.10156,-2 4.5,-4.30078c0.40234,-2.5 0.90234,-6.09766 1,-10.59766c0,-4.5 -0.5,-8.10156 -1,-10.60156c-0.39844,-2.19922 -2.29687,-3.80078 -4.5,-4.30078c-3.5,-0.5 -9.59766,-1 -16.19531,-1zM24.40234,11c7.19922,0 12.99609,0.59766 15.79688,1.09766c1.5,0.40234 2.69922,1.40234 2.89844,2.70313c0.60156,3.19922 1,6.60156 1,10.10156c-0.09766,4.29688 -0.59766,7.79688 -1,10.29688c-0.29687,1.89844 -2.29687,2.5 -2.89844,2.70313c-3.60156,0.69922 -9.60156,1.19531 -15.60156,1.19531c-6,0 -12.09766,-0.39844 -15.59766,-1.19531c-1.5,-0.40234 -2.69922,-1.40234 -2.89844,-2.70312c-0.80078,-2.80078 -1.10156,-6.5 -1.10156,-10.19922c0,-4.60156 0.40234,-8 0.80078,-10.09766c0.30078,-1.90234 2.39844,-2.50391 2.89844,-2.70312c3.30078,-0.69922 9.40234,-1.19922 15.70313,-1.19922zM19,17v16l14,-8zM21,20.40234l8,4.59766l-8,4.59766z"></path></g></g>
+</svg>
+                        <h2 class="text-lg text-white font-semibold mt-2 group-hover:text-white-100">YouTube</h2>
+                    </a>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="py-12 px-6 border-t border-slate-900/70">
-        <div class="max-w-6xl mx-auto">
-            <div class="flex flex-col md:flex-row justify-between items-center">
-                <div class="mb-6 md:mb-0">
-                    <a href="javascript:void(0);" onclick="window.scrollTo({ top: 0, behavior: 'smooth' })"
-   class="text-2xl font-bold gradient-text hover:underline transition-all duration-300">
-  ASERY
-</a>
-                    <p class="text-sm text-slate-400 mt-2">Creative Developer & Music Producer</p>
-                </div>
-                
-                <div class="flex space-x-6">
-                    <a href="https://x.com/AseryTTV" class="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center hover:bg-purple-900/30 transition">
-                        <i class="fab fa-twitter text-lg"></i>
-                    </a>
-                    <a href="https://instagram.com/szlgy_janos" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-purple-500/20 transition">
-                        <i class="fab fa-instagram text-lg"></i>
-                    </a>
-                    <a href="https://github.com/Asery1x" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-purple-500/20 transition">
-                        <i class="fab fa-github text-lg"></i>
-                    </a>
-                    <a href="https://twitch.tv/AseryTTV" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-purple-500/20 transition">
-                        <i class="fab fa-twitch text-lg"></i>
-                    </a>
-                </div>
-            </div>
-            
-            <div class="border-t border-slate-800/50 mt-8 pt-8 text-center text-sm text-slate-500">
-                <p>© 2025 Asery. All rights reserved.</p>
-            </div>
-        </div>
+    <footer class="text-center text-gray-300 py-4 px-4 text-sm mb-16">
+        Made with ❤️ by Jani using <a
+            href="https://tailwindcss.com/" target="_blank"
+            class="hover:text-white transition-colors duration-300 link-underline">Tailwind CSS</a> • Copyright © 2025
     </footer>
 
-    <script>
-        // Initialize GSAP animations
-        gsap.registerPlugin(ScrollTrigger);
-        
-        // Animate about cards with staggered animation
-        gsap.from("#about-cards > div", {
-            scrollTrigger: {
-                trigger: "#about",
-                start: "top 80%",
-                toggleActions: "play none none none"
-            },
-            opacity: 0,
-            y: 50,
-            duration: 0.6,
-            stagger: 0.1,
-            ease: "back.out(1.7)"
-        });
-
-        // Animate passion cards with flip effect
-        gsap.from("#passion-cards > div", {
-            scrollTrigger: {
-                trigger: "#passions",
-                start: "top 80%",
-                toggleActions: "play none none none"
-            },
-            opacity: 0,
-            rotationX: 90,
-            duration: 0.8,
-            stagger: 0.2,
-            ease: "power3.out"
-        });
-
-        // Animate hobby cards with scale effect
-        gsap.from("#hobby-cards > div", {
-            scrollTrigger: {
-                trigger: "#passions",
-                start: "top 80%",
-                toggleActions: "play none none none"
-            },
-            opacity: 0,
-            scale: 0.5,
-            duration: 0.6,
-            stagger: 0.15,
-            ease: "elastic.out(1, 0.5)"
-        });
-
-        // Animate elements on scroll
-        gsap.utils.toArray('.card-glass:not(#about-cards > div, #passion-cards > div, #hobby-cards > div), .hobby-icon').forEach((element) => {
-            gsap.from(element, {
-                scrollTrigger: {
-                    trigger: element,
-                    start: "top 80%",
-                    toggleActions: "play none none none"
-                },
-                opacity: 0,
-                y: 50,
-                duration: 0.8,
-                ease: "power2.out"
-            });
-        });
-
-        // Profile image animation
-        document.getElementById('profile-image').addEventListener('mouseenter', () => {
-            gsap.to('#profile-image', {
-                scale: 1.05,
-                boxShadow: '0 0 30px rgba(139, 92, 246, 0.5)',
-                duration: 0.5
-            });
-        });
-        
-        document.getElementById('profile-image').addEventListener('mouseleave', () => {
-            gsap.to('#profile-image', {
-                scale: 1,
-                boxShadow: 'none',
-                duration: 0.5
-            });
-        });
-
-        // Scroll progress indicator
-        window.addEventListener('scroll', function() {
-            const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const scrollProgress = (scrollTop / scrollHeight) * 100;
-            document.querySelector('#scroll-progress').style.width = scrollProgress + '%';
-        });
-
-        document.addEventListener('DOMContentLoaded', function () {
-  const toggleBtn = document.getElementById('menu-toggle');
-  const mobileMenu = document.getElementById('mobile-menu');
-  const menuIcon = document.getElementById('menu-icon');
-
-  // Menürendszer
-  toggleBtn.addEventListener('click', () => {
-    mobileMenu.classList.toggle('hidden');
-    if (mobileMenu.classList.contains('hidden')) {
-      menuIcon.classList.remove('fa-times');
-      menuIcon.classList.add('fa-bars');
-    } else {
-      menuIcon.classList.remove('fa-bars');
-      menuIcon.classList.add('fa-times');
-    }
-  });
-
-  document.querySelectorAll('#mobile-menu a').forEach(link => {
-    link.addEventListener('click', () => {
-      mobileMenu.classList.add('hidden');
-      menuIcon.classList.remove('fa-times');
-      menuIcon.classList.add('fa-bars');
-    });
-  });
-
-  // 💡 Életkor számítás és kiírás
-  const birthDate = new Date(2006, 2, 25); // március 25
-  const today = new Date();
-  let age = today.getFullYear() - birthDate.getFullYear();
-  const monthDiff = today.getMonth() - birthDate.getMonth();
-  if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
-      age--;
-  }
-  document.getElementById('age').textContent = age;
-});
-
-
-    // Menü automatikus bezárása kattintás után
-    document.querySelectorAll('#mobile-menu a').forEach(link => {
-        link.addEventListener('click', () => {
-            mobileMenu.classList.add('hidden');
-        });
-    });
-        
-        // Particles background for hero section
-        function initParticles() {
-            const container = document.querySelector('.particles');
-            const particleCount = 30;
-            
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle absolute rounded-full bg-purple-500/20';
-                
-                // Random properties
-                const size = Math.random() * 5 + 2;
-                const posX = Math.random() * 100;
-                const posY = Math.random() * 100;
-                const delay = Math.random() * 5;
-                const duration = Math.random() * 10 + 5;
-                
-                particle.style.width = `${size}px`;
-                particle.style.height = `${size}px`;
-                particle.style.left = `${posX}%`;
-                particle.style.top = `${posY}%`;
-                
-                // Animate with GSAP
-                gsap.to(particle, {
-                    y: '+=100',
-                    x: '+=50',
-                    opacity: 0,
-                    duration: duration,
-                    delay: delay,
-                    repeat: -1,
-                    yoyo: true,
-                    ease: 'sine.inOut'
-                });
-                
-                container.appendChild(particle);
-            }
-        }
-        
-        // Initialize when page loads
-        window.addEventListener('load', () => {
-            initParticles();
-            
-            // Animate hero section
-            gsap.from('#hero h1', {
-                opacity: 0,
-                y: -50,
-                duration: 1,
-                ease: 'power3.out'
-            });
-            
-            gsap.from('#hero .typewriter', {
-                opacity: 0,
-                y: 50,
-                duration: 1,
-                delay: 0.5,
-                ease: 'power3.out'
-            });
-        });
-    </script>
+    <!-- Scroll to Top Button -->
+    <button id="scrollToTop"
+        class="fixed bottom-4 right-4 bg-gray-800/30 border border-gray-700/30 hover:bg-gray-700/30 text-white p-3 rounded-lg transition-all duration-300 hover:scale-110 opacity-0 invisible">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+        </svg>
+    </button>
 </body>
 </html>
