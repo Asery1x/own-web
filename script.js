@@ -68,44 +68,35 @@ enlargedImageModal.addEventListener('click', () => {
     enlargedImageModal.classList.add('hidden');
 });
 
-const viewProjectBtn = document.querySelector('[data-view-project]');
-if (viewProjectBtn) {
-    viewProjectBtn.addEventListener('click', () => {
-        enlargedImageModal.classList.remove('hidden');
-    });
-}
-
-document.querySelectorAll('[data-portfolio-image]').forEach(image => {
-    image.addEventListener('click', () => {
-        const imageUrl = image.getAttribute('src');
-        enlargedImage.src = imageUrl;
-        enlargedImageModal.classList.remove('hidden');
-    });
-});
-
-// Remove old event listeners
-document.querySelectorAll('[data-portfolio-image], [data-view-project]').forEach(element => {
-    element.addEventListener('click', function () {
-        // Find the closest portfolio section
-        const portfolioSection = this.closest('.flex-col.md\\:flex-row');
-        if (portfolioSection) {
-            // Find the image within this section
-            const imageElement = portfolioSection.querySelector('img');
-            if (imageElement) {
-                const imageUrl = imageElement.getAttribute('src');
-                enlargedImage.src = imageUrl;
-                enlargedImageModal.classList.remove('hidden');
-            }
+// Működő kinagyítás gombra és képre is
+document.querySelectorAll('[data-view-project]').forEach(button => {
+    button.addEventListener('click', function () {
+        const targetSelector = this.getAttribute('data-target');
+        const image = document.querySelector(targetSelector);
+        if (image) {
+            enlargedImage.src = image.src;
+            enlargedImageModal.classList.remove('hidden');
+        } else {
+            console.warn("Kép nem található: ", targetSelector);
         }
     });
 });
 
-// Close modal when clicking the close button or outside the image
+// Bármely képre kattintva is kinagyítja
+document.querySelectorAll('img').forEach(img => {
+    img.addEventListener('click', () => {
+        enlargedImage.src = img.src;
+        enlargedImageModal.classList.remove('hidden');
+    });
+});
+
+// Bezárás
 enlargedImageModal.addEventListener('click', (e) => {
-    if (e.target === enlargedImageModal || e.target.closest('#closeModal')) {
+    if (e.target === enlargedImageModal || e.target === closeModal) {
         enlargedImageModal.classList.add('hidden');
     }
 });
+
 
 appear.forEach((element) => {
     observer.observe(element);
