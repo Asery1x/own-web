@@ -1323,3 +1323,22 @@ body {
     transform: translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))
 }
 
+#image1v1 {
+    width: 512px;
+    height: 300px;
+    margin-bottom: 3rem;
+}
+
+#imageZone {
+    width: 512px;
+    height: 300px;
+    margin-bottom: 3rem;
+}
+
+#map1v1{
+    margin-right: 80px;
+}
+
+#mapZone {
+    margin-left: 80px;
+}
