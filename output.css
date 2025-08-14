@@ -1335,10 +1335,8 @@ body {
     margin-bottom: 3rem;
 }
 
-#map1v1{
-    margin-right: 80px;
-}
-
-#mapZone {
-    margin-left: 80px;
+/* Fortnite Maps kártyák közti hézag */
+.maps-gap { gap: 4rem; }             /* alap: 64px */
+@media (min-width: 1024px) {
+  .maps-gap { column-gap: 8rem; }    /* nagyobb vízszintes hely: 128px */
 }
